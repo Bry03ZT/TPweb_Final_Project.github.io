@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>COTIZACIONES | SOLFIX PERU S.A.C.</title>
+        <link rel="icon" href="IMAGENES1/logo2.jpg" type="image/x-icon">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <link rel="stylesheet" href="ESTILO1/cotizaciones.css">
+        <link rel="stylesheet" href="ESTILO1/carrito.css">
+    </head>
+    
+    <body>
+        <header>
+            <div class="header-container">
+                <div class="logo-container">
+                    <img src="IMAGENES1/logo2.jpg" alt="Logo SOLFIX PERU S.A.C." class="logo">
+                    <h1 class="titulo-principal">Cotizaciones</h1>
+                </div>
+                <nav class="topnav" id="myTopnav">
+                    <a href="index.html">Inicio</a>
+                    <a href="productos.html">Productos</a>
+                    <a href="servicios.html">Servicios</a>
+                    <a href="contacto.html">Contacto</a>
+                    <a href="nosotros.html">Nosotros</a>
+                    <a href="cotizaciones.html" class="active">Cotizaciones</a>
+                    <a href="nuestras-tiendas.html">Nuestras Tiendas</a>
+                    <a href="novedades.html">Novedades</a>
+                    <a href="faq.html">FAQ</a>
+                    <a href="trabaja-con-nosotros.html">Trabaja con Nosotros</a>
+                    <a href="javascript:void(0);" class="icon" onclick="toggleMenu()">
+                        <i class="fa fa-bars"></i>
+                    </a>
+                </nav>
+            </div>
+        </header>
+                        
+        <div class="icon-container">
+            <img src="IMAGENES1/carrito.png" alt="Carrito de Compras" id="iconoCarrito">
+        </div>
+                        
+        <div class="hero-banner">
+          <div class="hero-content">
+            <h2><br>APROVECHE <br> AHORA</h2>
+          </div>
+        </div>
+    
+        <div class="container">
+            <main class="main-content">
+                <section class="intro">
+                    <h2>Formulario de Cotización</h2>
+                    <p>Complete el siguiente formulario para generar una cotización personalizada.</p>
+                    <div class="cta">
+                        <p>¿Necesita ayuda? Llámenos al <strong>(01) 123-4567</strong></p>
+                    </div>
+                </section>
+    
+                <form id="form-cotizacion">
+                    <fieldset>
+                        <legend>Datos del Cliente</legend>
+                        <div class="form-group">
+                            <label for="nombre">Nombre Completo:</label>
+                            <input type="text" id="nombre" name="nombre" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Correo Electrónico:</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="telefono">Teléfono:</label>
+                            <input type="tel" id="telefono" name="telefono" required>
+                        </div>
+                    </fieldset>
+    
+                    <fieldset class="productos-fieldset">
+                        <legend>Selección de Productos</legend>
+                        <div class="form-group">
+                            <div class="filtros-container">
+                                <div class="search-container">
+                                    <input type="text" id="buscarProducto" placeholder="Buscar producto...">
+                                    <button type="button" id="btnBuscar"><i class="fas fa-search"></i> Buscar</button>
+                                </div>
+                                
+                                <div class="ordenar-container">
+                                    <label>Ordenar por:</label>
+                                    <select id="ordenarProductos">
+                                        <option value="nombre-asc">Nombre (A-Z)</option>
+                                        <option value="nombre-desc">Nombre (Z-A)</option>
+                                        <option value="precio-asc">Precio (Menor a Mayor)</option>
+                                        <option value="precio-desc">Precio (Mayor a Menor)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Carrusel de productos disponibles -->
+                            <div class="carrusel-container" id="carrusel-productos">
+                                <!-- Los productos se cargarán dinámicamente aquí -->
+                            </div>
+                            
+                            <!-- Productos seleccionados -->
+                            <div class="selected-products-container">
+                                <div class="selected-products-header">
+                                    <h3>Productos seleccionados:</h3>
+                                    <button type="button" id="btnEliminarTodos" class="btn btn-danger btn-sm">
+                                        <i class="fas fa-trash"></i> Eliminar Todos
+                                    </button>
+                                </div>
+                                <div id="productos-seleccionados" class="productos-grid"></div>
+                            </div>
+                        </div>
+                    </fieldset>
+    
+                    <fieldset class="resumen-cotizacion">
+                        <legend>Resumen de Cotización</legend>
+                        <div class="instruccion">
+                            <p><i class="fas fa-info-circle"></i> Complete las cantidades e imprima esta página para obtener su cotización con los totales calculados</p>
+                        </div>
+                        <div class="hoja-calculo">
+                            <table id="tabla-resumen">
+                                <thead>
+                                    <tr>
+                                        <th>Producto</th>
+                                        <th>Cantidad</th>
+                                        <th>Precio Unit.</th>
+                                        <th>Subtotal</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="cuerpo-resumen">
+                                    <!-- Los productos seleccionados aparecerán aquí dinámicamente -->
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="3">Subtotal:</td>
+                                        <td>S/ <span class="total-subtotal">0.00</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3">IGV (18%):</td>
+                                        <td>S/ <span class="total-igv">0.00</span></td>
+                                    </tr>
+                                    <tr class="total-final">
+                                        <td colspan="3">TOTAL:</td>
+                                        <td>S/ <span class="total-general">0.00</span></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </fieldset>
+    
+                    <fieldset>
+                        <legend>Información Adicional</legend>
+                        <div class="form-group">
+                            <label for="mensaje">Mensaje o Requerimientos Especiales:</label>
+                            <textarea id="mensaje" name="mensaje" rows="4"></textarea>
+                        </div>
+                    </fieldset>
+    
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-primary" onclick="window.print()">
+                            <i class="fas fa-print"></i> Imprimir Cotización
+                        </button>
+                        <button type="button" id="btnLimpiarTodo" class="btn btn-secondary">
+                            <i class="fas fa-redo"></i> Limpiar Formulario
+                        </button>
+                        <button type="button" id="btnGuardarCotizacion" class="btn btn-success">
+                            <i class="fas fa-save"></i> Guardar Cotización
+                        </button>
+                    </div>
+                </form>
+            </main>
+        </div>
+    
+        <footer>
+            <div class="footer-container">
+                <p>© 2025 SOLFIX PERU S.A.C. - Todos los derechos reservados.</p>
+                <p><i class="fas fa-phone"></i> (01) 123-4567 | <i class="fas fa-envelope"></i> info@solfix.com</p>
+            </div>
+            
+            <!-- Imagen del Libro de Reclamaciones -->
+            <div style="text-align: center; padding: 15px;">
+              <a href="libroreclamos.html" title="Libro de Reclamaciones">
+                <img src="IMAGENES1/Librorecla.png" alt="Libro de Reclamaciones" style="width: 120px;">
+              </a>
+              <p style="font-size: 14px;">Libro de Reclamaciones</p>
+            </div>
+            
+            <div class="fullscreen-buttons">
+                <button onclick="openFullscreen()"><i class="fas fa-expand"></i> Pantalla Completa</button>
+                <button onclick="closeFullscreen()"><i class="fas fa-compress"></i> Salir</button>
+            </div>
+        </footer>
+
+        <!-- Modal para administración de productos -->
+        <div id="modalProductos" class="modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <h2>Administración de Productos</h2>
+                
+                <div class="modal-tabs">
+                    <button class="tab-btn active" data-tab="agregar">Agregar Producto</button>
+                    <button class="tab-btn" data-tab="editar">Editar Producto</button>
+                    <button class="tab-btn" data-tab="eliminar">Eliminar Producto</button>
+                </div>
+                
+                <div id="agregar" class="tab-content active">
+                    <form id="form-agregar-producto">
+                        <div class="form-group">
+                            <label for="nombre-producto">Nombre del Producto:</label>
+                            <input type="text" id="nombre-producto" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="descripcion-producto">Descripción:</label>
+                            <input type="text" id="descripcion-producto" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="precio-producto">Precio (S/):</label>
+                            <input type="number" id="precio-producto" step="0.01" min="0" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="presentacion-producto">Presentación:</label>
+                            <input type="text" id="presentacion-producto" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="categoria-producto">Categoría:</label>
+                            <select id="categoria-producto" required>
+                                <option value="pisos">Pisos</option>
+                                <option value="paredes">Paredes</option>
+                                <option value="cocina">Cocina</option>
+                                <option value="baño">Baño</option>
+                                <option value="materiales">Materiales</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Agregar Producto</button>
+                    </form>
+                </div>
+                
+                <div id="editar" class="tab-content">
+                    <form id="form-editar-producto">
+                        <div class="form-group">
+                            <label for="select-producto-editar">Seleccionar Producto:</label>
+                            <select id="select-producto-editar" required>
+                                <!-- Opciones se llenarán dinámicamente -->
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="nombre-producto-editar">Nombre del Producto:</label>
+                            <input type="text" id="nombre-producto-editar" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="descripcion-producto-editar">Descripción:</label>
+                            <input type="text" id="descripcion-producto-editar" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="precio-producto-editar">Precio (S/):</label>
+                            <input type="number" id="precio-producto-editar" step="0.01" min="0" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="presentacion-producto-editar">Presentación:</label>
+                            <input type="text" id="presentacion-producto-editar" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="categoria-producto-editar">Categoría:</label>
+                            <select id="categoria-producto-editar" required>
+                                <option value="pisos">Pisos</option>
+                                <option value="paredes">Paredes</option>
+                                <option value="cocina">Cocina</option>
+                                <option value="baño">Baño</option>
+                                <option value="materiales">Materiales</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Actualizar Producto</button>
+                    </form>
+                </div>
+                
+                <div id="eliminar" class="tab-content">
+                    <form id="form-eliminar-producto">
+                        <div class="form-group">
+                            <label for="select-producto-eliminar">Seleccionar Producto:</label>
+                            <select id="select-producto-eliminar" required>
+                                <!-- Opciones se llenarán dinámicamente -->
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-danger">Eliminar Producto</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal para guardar cotización -->
+        <div id="modalGuardarCotizacion" class="modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <h2>Guardar Cotización</h2>
+                <p>La cotización se ha guardado correctamente.</p>
+                <div class="modal-actions">
+                    <button id="btnVerCotizaciones" class="btn btn-primary">Ver Mis Cotizaciones</button>
+                    <button class="btn btn-secondary close-modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Audio de fondo con controles -->
+        <audio id="backgroundAudio" loop>
+            <source src="AUDIO/music-background-peaceful.mp3" type="audio/mp3">
+        </audio>
+
+        <!-- Controles de audio flotantes -->
+        <div class="audio-controls">
+            <button id="toggleAudio" aria-label="Reproducir/Pausar sonido de fondo">
+                <i class="fas fa-volume-up"></i>
+            </button>
+            <input type="range" id="volumeControl" min="0" max="1" step="0.1" value="0.3" aria-label="Control de volumen">
+        </div>
+
+        <script src="JS/Menu.js"></script>
+        <script src="JS/carrito.js"></script>
+        <script src="JS/cotizaciones.js"></script>
+        <script src="JS/multimedia.js"></script>
+    </body>
+</html>
